@@ -1,0 +1,46 @@
+﻿<Window x:Class="Realestate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Realestate"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="800">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.01*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
+                    <GradientStop Color="WhiteSmoke" Offset="0.5"/>
+                    <GradientStop Color="White" Offset="0.15"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Background="Wheat" Foreground="LightSlateGray" FontSize="40" FontFamily="Book Antiqua" TextDecorations="{x:Null}" FontWeight="Bold" Height="50" Width="500">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="3"/>
+                </TextBlock.Effect><Run Text="          "/><Run Text=" Собственники"/></TextBlock>
+        </StackPanel>
+        <Frame Grid.Row="2" Name="FrmCit" NavigationUIVisibility="Hidden" Height="600">
+            <Frame.Background>
+                <RadialGradientBrush RadiusX="1" RadiusY="0.4" Center="0.5,0.5" GradientOrigin="0.1,0.5" Opacity="1">
+                    <GradientStop Color="Wheat" Offset="1"/>
+                    <GradientStop Color="Wheat" Offset="0"/>
+                    <GradientStop Color="Wheat" Offset="0.476"/>
+                </RadialGradientBrush>
+            </Frame.Background>
+        </Frame>
+       
+        <!--<Button x:Name="BtnHome" Content="Главная" Click="BtnHome_Click"  Grid.Row="2" Width="130" Height="50" FontSize="25" FontWeight="Bold" Background="WhiteSmoke" Foreground="LightSlateGray" HorizontalAlignment="Right" Margin="0 0 0 500" FontFamily="Courier New" >
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="3" Color="WhiteSmoke"/>
+            </Button.Effect>
+        </Button>-->
+    </Grid>
+</Window>

@@ -1,0 +1,54 @@
+﻿<Page x:Class="Realestate.Pages.PageCitizen"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Realestate.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageCitizen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Собственники" FontSize="30" FontWeight="Bold" Foreground="Silver" FontFamily="Courier New"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Поиск по ФИО собственника " FontSize = "20" FontWeight="Bold" Foreground="Silver" Height="25"  FontFamily="Courier New"/>
+            <TextBox Height="30" Width="180" FontSize="20" Foreground="#4169E1" FontWeight="Bold" Margin="7" Name="SearchCitizen_Name" TextChanged="SearchCitizen_Name_TextChanged" />
+        </StackPanel>
+        <Button x:Name="BtnHome" Content="Главная" Click="BtnHome_Click"  Grid.Row="0" Width="100" Height="40" FontSize="20" FontWeight="Bold" Background="WhiteSmoke" Foreground="LightSlateGray" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 0 0 0" FontFamily="Courier New" >
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="3" Color="WhiteSmoke"/>
+            </Button.Effect>
+        </Button>
+        <DataGrid Name="DtgCitizen" IsReadOnly="True" Grid.Row="2" Foreground="#4169E1" FontSize="16" FontWeight="DemiBold" AutoGenerateColumns="False" Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Width="0.18*" Binding="{Binding IDcitizen}"/>
+                <DataGridTextColumn Header="ФИО собственника" Width="*" Binding="{Binding FIO}"/>
+                <DataGridTextColumn Header="Паспорт" Width="*" Binding="{Binding Passport}"/>
+                <DataGridTextColumn Header="Телефон" Width="*" Binding="{Binding Telephone}"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить" Name="MenuAddCitizen" Click="MenuAddCitizen_Click" FontSize="18" FontWeight="DemiBold" Foreground="#4169E1"  />
+                    <MenuItem Header="Редактировать" Name="MenuEditCitizen" Click="MenuEditCitizen_Click" FontSize="18" FontWeight="DemiBold" Foreground="#4169E1"  />
+                    <Separator/>
+                    <MenuItem Header="Печать" Name="Excel" Click="Excel_Click"  FontSize="18" FontWeight="DemiBold" Foreground="#4169E1"/>
+                    <Separator/>
+                    <MenuItem Header="Сортировка по ФИО"  FontSize="18" FontWeight="DemiBold" Foreground="#4169E1"  >
+                        <MenuItem Header="От А до Я" Name="MenuSortCitizen" Click="MenuSortCitizen_Click"  FontSize="18" FontWeight="DemiBold" Foreground="#4169E1"  />
+                        <MenuItem Header="От Я до А" Name="MenuSortCitizen2"  Click="MenuSortCitizen2_Click" FontSize="18" FontWeight="DemiBold" Foreground="#4169E1"  />
+                        <Separator/>
+                        <MenuItem Header="Cброс" Name="MenuSortClear" Click="MenuSortClear_Click"  FontSize="18" FontWeight="DemiBold" Foreground="#4169E1"  />
+                    </MenuItem>
+                    <MenuItem Header="Удалить" Name="MenuDelCitizen" Click="MenuDelCitizen_Click" FontSize="18" FontWeight="DemiBold" Foreground="#4169E1"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</Page>

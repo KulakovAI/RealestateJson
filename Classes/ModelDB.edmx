@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище CommunalPaymentsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Citizen">
+          <Key>
+            <PropertyRef Name="IDcitizen" />
+          </Key>
+          <Property Name="IDcitizen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar(max)" />
+          <Property Name="Passport" Type="int" />
+          <Property Name="Telephone" Type="nvarchar(max)" />
+          <Property Name="IDestate" Type="int" />
+        </EntityType>
+        <EntityType Name="RealEstate">
+          <Key>
+            <PropertyRef Name="IDestate" />
+          </Key>
+          <Property Name="IDestate" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Prescribed" Type="int" />
+          <Property Name="HousingArea" Type="int" />
+          <Property Name="Rent" Type="float" />
+          <Property Name="IDtype" Type="int" />
+          <Property Name="CostForMeter" Type="float" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="IDtype" />
+          </Key>
+          <Property Name="IDtype" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Citizen_RealEstate">
+          <End Role="RealEstate" Type="Self.RealEstate" Multiplicity="0..1" />
+          <End Role="Citizen" Type="Self.Citizen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstate">
+              <PropertyRef Name="IDestate" />
+            </Principal>
+            <Dependent Role="Citizen">
+              <PropertyRef Name="IDestate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RealEstate_Type1">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="RealEstate" Type="Self.RealEstate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="IDtype" />
+            </Principal>
+            <Dependent Role="RealEstate">
+              <PropertyRef Name="IDtype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CommunalPaymentsModelContainer">
+          <EntitySet Name="Citizen" EntityType="Self.Citizen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RealEstate" EntityType="Self.RealEstate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Citizen_RealEstate" Association="Self.FK_Citizen_RealEstate">
+            <End Role="RealEstate" EntitySet="RealEstate" />
+            <End Role="Citizen" EntitySet="Citizen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RealEstate_Type1" Association="Self.FK_RealEstate_Type1">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="RealEstate" EntitySet="RealEstate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CommunalPaymentsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Citizen">
+          <Key>
+            <PropertyRef Name="IDcitizen" />
+          </Key>
+          <Property Name="IDcitizen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Passport" Type="Int32" />
+          <Property Name="Telephone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IDestate" Type="Int32" />
+          <NavigationProperty Name="RealEstate" Relationship="Self.FK_Citizen_RealEstate" FromRole="Citizen" ToRole="RealEstate" />
+        </EntityType>
+        <EntityType Name="RealEstate">
+          <Key>
+            <PropertyRef Name="IDestate" />
+          </Key>
+          <Property Name="IDestate" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Prescribed" Type="Int32" />
+          <Property Name="HousingArea" Type="Int32" />
+          <Property Name="Rent" Type="Double" />
+          <Property Name="IDtype" Type="Int32" />
+          <NavigationProperty Name="Citizen" Relationship="Self.FK_Citizen_RealEstate" FromRole="RealEstate" ToRole="Citizen" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_RealEstate_Type1" FromRole="RealEstate" ToRole="Type" />
+          <Property Name="CostForMeter" Type="Double" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="IDtype" />
+          </Key>
+          <Property Name="IDtype" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RealEstate" Relationship="Self.FK_RealEstate_Type1" FromRole="Type" ToRole="RealEstate" />
+        </EntityType>
+        <Association Name="FK_Citizen_RealEstate">
+          <End Role="RealEstate" Type="Self.RealEstate" Multiplicity="0..1" />
+          <End Role="Citizen" Type="Self.Citizen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstate">
+              <PropertyRef Name="IDestate" />
+            </Principal>
+            <Dependent Role="Citizen">
+              <PropertyRef Name="IDestate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RealEstate_Type1">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="RealEstate" Type="Self.RealEstate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="IDtype" />
+            </Principal>
+            <Dependent Role="RealEstate">
+              <PropertyRef Name="IDtype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CommunalPaymentsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Citizen" EntityType="Self.Citizen" />
+          <EntitySet Name="RealEstate" EntityType="Self.RealEstate" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Type" EntityType="Self.Type" />
+          <AssociationSet Name="FK_Citizen_RealEstate" Association="Self.FK_Citizen_RealEstate">
+            <End Role="RealEstate" EntitySet="RealEstate" />
+            <End Role="Citizen" EntitySet="Citizen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RealEstate_Type1" Association="Self.FK_RealEstate_Type1">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="RealEstate" EntitySet="RealEstate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CommunalPaymentsModelContainer" CdmEntityContainer="CommunalPaymentsEntities">
+          <EntitySetMapping Name="Citizen">
+            <EntityTypeMapping TypeName="CommunalPaymentsModel.Citizen">
+              <MappingFragment StoreEntitySet="Citizen">
+                <ScalarProperty Name="IDcitizen" ColumnName="IDcitizen" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="IDestate" ColumnName="IDestate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RealEstate">
+            <EntityTypeMapping TypeName="CommunalPaymentsModel.RealEstate">
+              <MappingFragment StoreEntitySet="RealEstate">
+                <ScalarProperty Name="CostForMeter" ColumnName="CostForMeter" />
+                <ScalarProperty Name="IDestate" ColumnName="IDestate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Prescribed" ColumnName="Prescribed" />
+                <ScalarProperty Name="HousingArea" ColumnName="HousingArea" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="IDtype" ColumnName="IDtype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CommunalPaymentsModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type">
+            <EntityTypeMapping TypeName="CommunalPaymentsModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="IDtype" ColumnName="IDtype" />
+                <ScalarProperty Name="Type1" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
